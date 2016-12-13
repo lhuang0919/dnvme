@@ -777,6 +777,13 @@ static int update_msixptr(struct  metrics_device_list *pmetrics_device_elem,
     case 0x00:  /* BAR0 (64-bit) */
         msix_ptr = (metrics_device->private_dev.bar0 + msix_to);
         break;
+	case 0x02:	/* BAR1 (64-bit) */
+		if (metrics_device->private_dev.bar1 == NULL) {
+			LOG_ERR("BAR1 not implemented by DUT");
+			return -EINVAL;
+		}
+		msix_ptr = (metrics_device->private_dev.bar1 + msix_to);
+		break;
     case 0x04:  /* BAR2 (64-bit) */
         if (metrics_device->private_dev.bar2 == NULL) {
             LOG_ERR("BAR2 not implemented by DUT");
@@ -796,6 +803,14 @@ static int update_msixptr(struct  metrics_device_list *pmetrics_device_elem,
     case 0x00:  /* BAR0 (64-bit) */
         pba_ptr = (metrics_device->private_dev.bar0 + msix_pbao);
         break;
+	case 0x02:	/* BAR1 (64-bit) */
+		if (metrics_device->private_dev.bar1 == NULL) {
+			LOG_ERR("BAR1 not implemented by DUT");
+			return -EINVAL;
+		}
+		pba_ptr = (metrics_device->private_dev.bar1 + msix_pbao);
+		break;
+
     case 0x04:  /* BAR2 (64-bit) */
         if (metrics_device->private_dev.bar2 == NULL) {
             LOG_ERR("BAR2 not implemented by DUT");
